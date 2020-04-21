@@ -1,0 +1,130 @@
+<div class='container'>
+  <br><br><br><br>
+  <div *ngIf="showForm">
+    <form [formGroup]="form"  (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-lg">
+          <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" formControlName="name" class="form-control" pattern="^([a-zA-Z]+|[a-zA-Z]+\s{1}[a-zA-Z]{1,}|[a-zA-Z]+\s{1}[a-zA-Z]{3,}\s{1}[a-zA-Z]{1,})$" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">Name is required</div>
+                  <div *ngIf="f.name.errors.pattern">Enter valid Name with minimum 3 characters</div> 
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="text" formControlName="email" class="form-control" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.pattern">Enter valid Email</div> 
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="Mobile_No">Mobile_No:</label>
+              <input type="text" formControlName="mobile" class="form-control" pattern="^\d{10}$" [ngClass]= "{ 'is-invalid': submitted && f.mobile.errors }"/>
+              <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobile.errors.required">Mobile_No is required</div>
+                  <div *ngIf="f.mobile.errors.pattern">Enter valid Mobile_No</div> 
+              </div>
+          </div>
+          <h4>Address:</h4>
+          <div class="form-group">
+            <label for="country">Country:</label>
+            <input type="text" formControlName="country" class="form-control" [ngClass]= "{ 'is-invalid': submitted && f.country.errors }"/>
+            <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+                <div *ngIf="f.country.errors.required">Country is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg">
+              <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" formControlName="state" class="form-control" [ngClass]= "{ 'is-invalid': submitted && f.state.errors }"/>
+                <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                    <div *ngIf="f.state.errors.required">State is required</div>
+                </div>
+              </div>
+          <div class="form-group">
+            <label for="district">District:</label>
+            <input type="text" formControlName="district" class="form-control" [ngClass]= "{ 'is-invalid': submitted && f.district.errors }"/>
+            <div *ngIf="submitted && f.district.errors" class="invalid-feedback">
+                <div *ngIf="f.district.errors.required">District is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode:</label>
+            <input type="text" formControlName="pincode" class="form-control" [ngClass]= "{ 'is-invalid': submitted && f.pincode.errors }"/>
+            <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+                <div *ngIf="f.pincode.errors.required">Pincode is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="addressline">Address_line:</label>
+            <input type="text" formControlName="addressline" class="form-control" [ngClass]= "{ 'is-invalid': submitted && f.addressline.errors }"/>
+            <div *ngIf="submitted && f.addressline.errors" class="invalid-feedback">
+                <div *ngIf="f.addressline.errors.required">Address is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="form-group">
+            <button [disabled]="submitButton" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Submit
+            </button>
+            <button type="button" style="margin-left: 4px;"  (click)="cancel()" class="btn btn-primary">Cancel</button>
+        </div>
+    </form>
+  </div>
+  <br>
+  <button type="button" style="margin-left: 4px;"  (click)="addNewUser()" class="btn btn-primary">Add  User</button>
+  <br>
+  <input type="text"class="form-control" [(ngModel)]='search' (keyup)="searchByInput()" placeholder="Start searching By Name or Email or Mobile_No"/>
+  <br>
+  <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name <button (click)="sortByName()">&#8645;</button></th>
+          <th scope="col">Email <button (click)="sortByEmail()">&#8645;</button></th>
+          <th scope="col">Mobile_No. <button (click)="sortByCity()">&#8645;</button></th>
+          <th scope="col">Address</th>
+          <th scope="col" colspan="2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor = 'let user of data'>
+              <td>{{user._source.full_name}}</td>
+              <td>{{user._source.email}}</td>
+              <td>{{user._source.mobile_number}}</td>
+              <td>{{user._source.address.address_line+","+user._source.address.district+","+user._source.address.state+","+user._source.address.country+","+user._source.address.pin_code}}</td>
+              <div>
+                  <td><button type="button" class="btn btn-primary" (click)=  "updateUser(user._id)">Update</button></td>
+                  <td><button type="button" class="btn btn-danger" (click)=  "deleteUser(user._id)">Delete</button></td>
+              </div>
+          </tr>
+      </tbody>
+  </table>
+  <div *ngIf="totalUser > perPageData">
+      <br>
+      <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+          <li class="page-item" [ngClass]="{'disabled': currentPage==1}">
+            <a class="page-link"  (click)="changepage(1)">&laquo;&laquo;</a>
+          </li>
+          <li class="page-item" [ngClass]="{'disabled': currentPage==1}">
+            <a class="page-link"  (click)="changepage(currentPage-1)">previous</a>
+          </li>
+          <li class="page-item" [ngClass]="{'active': currentPage==i+1}" *ngFor = " let in of totalPageArray;let i = index">
+            <a class="page-link "  (click)="changepage(i+1)">{{i+1}}</a>
+          </li>
+          <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
+            <a class="page-link"  (click)="changepage(currentPage+1)">next</a>
+          </li>
+          <li class="page-item" [ngClass]="{'disabled': currentPage==totalPage}">
+            <a class="page-link"  (click)="changepage(totalPage)">&raquo;&raquo;</a>
+          </li>
+        </ul>
+      </nav>
+  </div>
+</div>
