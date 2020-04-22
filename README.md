@@ -9,12 +9,10 @@ elastic-search-demo with Angular,Node js,Express js
 
 ### Demo
 #### Node-js Dependency:
-```
 1. [express](https://www.npmjs.com/package/express)
 1. [elasticsearch](https://www.npmjs.com/package/elasticsearch)
 1. [dotenv](https://www.npmjs.com/package/dotenv)
 1. [cors](https://www.npmjs.com/package/cors)
-```
 #### How Start Demo?
 This repo contains examples on how to use elasticsearch in Node.js to CRUD operation.
 To clone this repo in your machine:
@@ -96,8 +94,8 @@ const esClient = new es.Client({
 
 #### CRUD API:
 ##### ADD User:
-API: ```POST http://localhost:8001/user/add```
-Request Body: 
+*API: ```POST http://localhost:8001/user/add```
+*Request Body: 
  ```
  {
 	"name": "Full_Name",
@@ -110,7 +108,7 @@ Request Body:
 	"addressline": "Address_line"
 }
 ```
-Response:
+*Response:
 ```
 {
     "code": 200,
@@ -131,7 +129,7 @@ Response:
     }
 }
 ```
-Node-js code:
+*Node-js code:
 ```
 esClient.index({
                 index: userdetails2,
@@ -150,8 +148,8 @@ esClient.index({
             });
 ```
 #### SerachUserById:
-API: ```GET localhost:8001/user/:id```
-Response:
+*API: ```GET localhost:8001/user/:id```
+*Response:
 ```
 {
     "code": 200,
@@ -179,7 +177,7 @@ Response:
     }
 }
 ```
-Node-js code:
+*Node-js code:
 ```
 esClient.get({
         index: userdetails2,
@@ -187,8 +185,8 @@ esClient.get({
     });
 ```
 #### Search:
-API: ```GET http://localhost:8001/user?search= &size=&currentPage=&sort=&order=```
-ResPonse:
+*API: ```GET http://localhost:8001/user?search= &size=&currentPage=&sort=&order=```
+*Response:
 ```
 {
     "code": 200,
@@ -213,7 +211,7 @@ ResPonse:
     }
 }
 ```
-Node-js code:
+*Node-js code:
 ```
 let search = req.query.search.toLowerCase() || '';
 let size = req.query.size || 10;
@@ -269,8 +267,8 @@ esClient.search({
     });
 ```
 #### UpdateById:
-API: ```PUT localhost:8001/user/update/:id```
-Request Body:
+*API: ```PUT localhost:8001/user/update/:id```
+*Request Body:
 ```
  {
 	"name": "Full_Name",
@@ -283,7 +281,7 @@ Request Body:
 	"addressline": "Address_line"
 }
 ```
-Response:
+*Response:
 ```
 {
     "code": 200,
@@ -304,7 +302,7 @@ Response:
     }
 }
 ```
-Node-js code:
+*Node-js code:
 ```
 let data = {},
     address={};
@@ -344,8 +342,8 @@ esClient.update({
     });
 ```
 #### Delete:
-API: ```DELETE http://localhost:8001/user/delete/:id```
-Response:
+*API: ```DELETE http://localhost:8001/user/delete/:id```
+*Response:
 ```
 {
     "code": 200,
@@ -366,7 +364,7 @@ Response:
     }
 }
 ```
-Node-js code:
+*Node-js code:
 ```
 esClient.delete({
         index: userdetails2,
