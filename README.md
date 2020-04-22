@@ -23,7 +23,9 @@ To set index and mapping in elastisearch:
 ```elastic-search-demo/backend>node config.js```
 
 To Start Node-js server:
+
 ```elastic-search-demo/backend>npm start```
+
 Then, Node-js server listen on ```http://localhost:8001/```
 
 To Start  Angular-cli:
