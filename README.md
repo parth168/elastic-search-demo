@@ -94,8 +94,9 @@ const esClient = new es.Client({
 
 #### CRUD API:
 ##### ADD User:
-*API: ```POST http://localhost:8001/user/add```
-*Request Body: 
+API: ```POST http://localhost:8001/user/add```
+
+Request Body: 
  ```
  {
 	"name": "Full_Name",
@@ -108,7 +109,7 @@ const esClient = new es.Client({
 	"addressline": "Address_line"
 }
 ```
-*Response:
+Response:
 ```
 {
     "code": 200,
@@ -129,7 +130,7 @@ const esClient = new es.Client({
     }
 }
 ```
-*Node-js code:
+Node-js code:
 ```
 esClient.index({
                 index: userdetails2,
@@ -148,8 +149,8 @@ esClient.index({
             });
 ```
 #### SerachUserById:
-*API: ```GET localhost:8001/user/:id```
-*Response:
+API: ```GET localhost:8001/user/:id```
+Response:
 ```
 {
     "code": 200,
@@ -185,8 +186,8 @@ esClient.get({
     });
 ```
 #### Search:
-*API: ```GET http://localhost:8001/user?search= &size=&currentPage=&sort=&order=```
-*Response:
+API: ```GET http://localhost:8001/user?search= &size=&currentPage=&sort=&order=```
+Response:
 ```
 {
     "code": 200,
@@ -211,7 +212,7 @@ esClient.get({
     }
 }
 ```
-*Node-js code:
+Node-js code:
 ```
 let search = req.query.search.toLowerCase() || '';
 let size = req.query.size || 10;
@@ -267,8 +268,8 @@ esClient.search({
     });
 ```
 #### UpdateById:
-*API: ```PUT localhost:8001/user/update/:id```
-*Request Body:
+API: ```PUT localhost:8001/user/update/:id```
+Request Body:
 ```
  {
 	"name": "Full_Name",
@@ -281,7 +282,7 @@ esClient.search({
 	"addressline": "Address_line"
 }
 ```
-*Response:
+Response:
 ```
 {
     "code": 200,
@@ -302,7 +303,7 @@ esClient.search({
     }
 }
 ```
-*Node-js code:
+Node-js code:
 ```
 let data = {},
     address={};
@@ -342,8 +343,8 @@ esClient.update({
     });
 ```
 #### Delete:
-*API: ```DELETE http://localhost:8001/user/delete/:id```
-*Response:
+API: ```DELETE http://localhost:8001/user/delete/:id```
+Response:
 ```
 {
     "code": 200,
@@ -364,7 +365,7 @@ esClient.update({
     }
 }
 ```
-*Node-js code:
+Node-js code:
 ```
 esClient.delete({
         index: userdetails2,
