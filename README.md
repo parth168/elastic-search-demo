@@ -150,6 +150,7 @@ esClient.index({
 ```
 #### SerachUserById:
 API: ```GET localhost:8001/user/:id```
+
 Response:
 ```
 {
@@ -187,6 +188,7 @@ esClient.get({
 ```
 #### Search:
 API: ```GET http://localhost:8001/user?search= &size=&currentPage=&sort=&order=```
+
 Response:
 ```
 {
@@ -269,6 +271,7 @@ esClient.search({
 ```
 #### UpdateById:
 API: ```PUT localhost:8001/user/update/:id```
+
 Request Body:
 ```
  {
@@ -344,6 +347,7 @@ esClient.update({
 ```
 #### Delete:
 API: ```DELETE http://localhost:8001/user/delete/:id```
+
 Response:
 ```
 {
